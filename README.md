@@ -52,7 +52,7 @@ This is done using environment variables *(REACT_APP_API_BASE_URL)* in a .env fi
 
 - Environment Variables (.env):
 
-    - A *.env *file is used to manage the API Gateway URL. React apps can read environment variables prefixed with REACT_APP_.
+    - A *.env * file is used to manage the API Gateway URL. React apps can read environment variables prefixed with REACT_APP_.
 
 
 ## Steps to Deploy Frontend on AWS S3
