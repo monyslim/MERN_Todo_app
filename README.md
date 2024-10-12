@@ -50,22 +50,20 @@ The React frontend is deployed as a static website hosted on an S3 bucket. Since
 The API base URL was changed to the Invoke URL of the API Gateway created in the backend setup.
 This is done using environment variables *(REACT_APP_API_BASE_URL)* in a .env file.
 
--Environment Variables (.env):
+- Environment Variables (.env):
 
-    -A *.env *file is used to manage the API Gateway URL. React apps can read environment variables prefixed with REACT_APP_.
+    - A *.env *file is used to manage the API Gateway URL. React apps can read environment variables prefixed with REACT_APP_.
 
 
 ## Steps to Deploy Frontend on AWS S3
 1. Set Up .env File:
     - In the root of your React project, create a .env file to store the API Gateway URL:
-    '''bash
+
     REACT_APP_API_BASE_URL=https://your-api-gateway-url.amazonaws.com/production
-    '''
+
 2. Build the React App:
     - Run the following command to build the production-ready version of the app:
-    '''bash
     npm run build
-    '''
     This will generate a build folder with optimized static files for deployment.
 3. Create an S3 Bucket:
 - Go to the AWS S3 console and create a new bucket for hosting the frontend.
@@ -73,3 +71,20 @@ This is done using environment variables *(REACT_APP_API_BASE_URL)* in a .env fi
 
 4. Upload Build Files:
     - Upload all files from the build/ folder to the S3 bucket.
+5. Set Permissions for Public Access:
+
+- Ensure the bucket permissions allow public access to the files. You may need to update the bucket policy or set the files' permissions to public.
+6. Access the Frontend:
+
+- Once everything is uploaded, use the S3 website URL to access the frontend.
+
+> Environment Variables for the Frontend
+Create a **.env ** file in the root of your React project:
+
+**REACT_APP_API_BASE_URL=https://your-api-gateway-url.amazonaws.com/production**
+
+# Since the frontend is hosted on S3 and the backend is on Lambda, Cross-Origin Resource Sharing (CORS) is important:
+
+- Backend: The Express app uses the cors package, which allows frontend requests to access the API without issues.
+
+- API Gateway: In API Gateway, ensure that CORS is enabled for each route. This will allow the frontend to make requests to the backend from a different origin.
